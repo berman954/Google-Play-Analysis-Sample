@@ -10,8 +10,7 @@ Google Play Store Uygulama Analizi: Veri Temizleme, Modelleme ve Popülerlik Tah
 2. 📊 Keşifsel Veri Analizi (EDA) ve Görselleştirme
    ✅ **İnceleme Sayıları** ve **Uygulama Kategorileri** gibi temel değişkenler görselleştirildi.  
    ✅ Uygulamaların popülerliği ile ilişkili **Kategorik Değişkenlerin** analizi yapıldı ve her kategoriye ait uygulama sayıları görselleştirildi.  
-   Eksik: Boxplot, histogram ve özellik önemi (feature importance) analizi detaylı olarak yapılmadı.
-
+   
 3. ⚙️ Özellik Mühendisliği (Feature Engineering & Feature Selection)
    ✅ Veri setindeki özellikler, popülerlik tahminine yönelik olarak seçildi. **Reviews** ve **Installs** gibi bağımsız değişkenler kullanıldı.  
    
@@ -28,10 +27,12 @@ Google Play Store Uygulama Analizi: Veri Temizleme, Modelleme ve Popülerlik Tah
    ✅ Eğitim ve test verileri arasında **%70 - %30** ayrım yapılarak modelin doğruluğu test edildi.  
    ✅ Modelin genellenebilirliğini test etmek amacıyla eğitim seti üzerinde doğruluk oranları hesaplandı.
 
-SONUÇ: Sonuç olarak:
+SONUÇ:
 Veri Analizi: Welch t-testinden elde edilen sonuç, Reviews sayılarındaki farkın anlamlı olduğunu gösteriyor.
 
-Modelleme: Lojistik regresyon modelinin başarılı bir uyum sağladığını ancak Reviews ve Installs değişkenlerinin modelde yer almadığını ve bu değişkenlerin birbirleriyle yüksek derecede ilişkili olabileceğini gösteriyor. Bu, modelin daha sağlam ve doğru sonuçlar verebilmesi için değişken seçimi veya multicollinearity kontrolü yapılması gerektiğini gösteriyor.
+Modelleme: Lojistik regresyon modelinin başarılı bir uyum sağladığını ancak Reviews ve Installs değişkenlerinin modelde yer almadığını ve bu değişkenlerin birbirleriyle yüksek derecede ilişkili olabileceğini gösteriyor. Bu, modelin daha sağlam ve doğru sonuçlar verebilmesi için değişken seçimi veya multicollinearity kontrolü yapılması gerektiği düşünülebilir.
+   
+   
    ################################ENG##############
 
 
