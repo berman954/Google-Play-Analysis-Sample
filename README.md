@@ -34,10 +34,11 @@ Yapılanlar:
    ✅ Eğitim ve test verileri arasında **%70 - %30** ayrım yapılarak modelin doğruluğu test edildi.  
    ✅ Modelin genellenebilirliğini test etmek amacıyla eğitim seti üzerinde doğruluk oranları hesaplandı.
 
+SONUÇ: Sonuç olarak:
+Veri Analizi: Welch t-testinden elde edilen sonuç, Reviews sayılarındaki farkın anlamlı olduğunu gösteriyor.
 
-
-
-   ################################ENG##############3
+Modelleme: Lojistik regresyon modelinin başarılı bir uyum sağladığını ancak Reviews ve Installs değişkenlerinin modelde yer almadığını ve bu değişkenlerin birbirleriyle yüksek derecede ilişkili olabileceğini gösteriyor. Bu, modelin daha sağlam ve doğru sonuçlar verebilmesi için değişken seçimi veya multicollinearity kontrolü yapılması gerektiğini gösteriyor.
+   ################################ENG##############
 
 
 **Google Play Store App Analysis: Data Cleaning, Modeling, and Popularity Prediction** 📱📊
