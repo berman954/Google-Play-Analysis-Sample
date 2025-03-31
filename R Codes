@@ -1,4 +1,4 @@
-# Google Play Store Uygulama Analizi
+# Google Play Store Uygulama Analizi  (https://www.kaggle.com/datasets/lava18/google-play-store-apps)
 
 Bu projede, Google Play Store'daki uygulamaların kullanıcı etkileşimlerini analiz edildi,
 verileri temizlendi, dönüştürüldü ve bir lojistik regresyon modeli ile popülerlik tahmini yapıldı.
