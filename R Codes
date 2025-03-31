@@ -1,0 +1,95 @@
+# Google Play Store Uygulama Analizi
+
+Bu projede, Google Play Store'daki uygulamaların kullanıcı etkileşimlerini analiz edildi,
+verileri temizlendi, dönüştürüldü ve bir lojistik regresyon modeli ile popülerlik tahmini yaptık.
+
+## **Adımlar ve İşlemler**
+
+### 1. **Kütüphanelerin Yüklenmesi**
+Gerekli R paketlerini içe aktardık:
+```r
+library(tidyverse)
+library(lubridate)
+library(caret)
+library(ggplot2)
+library(plotly)
+library(randomForest)
+```
+
+### 2. **Veri Setinin Yüklenmesi ve Ön İnceleme**
+Google Play Store verisini yükledik ve genel bir bakış yaptık:
+```r
+apps <- read.csv("googleplaystore.csv", fileEncoding = "UTF-8")
+head(apps)
+summary(apps)
+str(apps)
+```
+
+### 3. **Eksik Verilerin Temizlenmesi**
+Rating sütunundaki eksik değerleri ortalama ile doldurduk:
+```r
+apps$Rating[is.na(apps$Rating)] <- mean(apps$Rating, na.rm = TRUE)
+```
+
+### 4. **Veri Dönüştürme**
+- `Reviews` ve `Installs` sütunlarını sayısal formata çevirdik.
+- `Installs` sütunundaki `+` ve `,` karakterlerini kaldırdık.
+```r
+apps$Reviews <- as.numeric(gsub(",", "", apps$Reviews))
+apps$Installs <- as.numeric(gsub("[+,]", "", apps$Installs))
+```
+
+### 5. **Popülerlik Değişkeninin Tanımlanması**
+- `Popularity` değişkenini 0 ve 1 olarak yeniden oluşturduk.
+- 1M'den fazla yüklemeye sahip olan uygulamaları "Popüler" olarak işaretledik.
+```r
+apps$Popularity <- ifelse(apps$Installs >= 1000000, 1, 0)
+```
+
+### 6. **Eğitim ve Test Setlerinin Ayrılması**
+```r
+set.seed(123)
+trainIndex <- createDataPartition(apps$Popularity, p = 0.7, list = FALSE)
+trainData <- apps[trainIndex, ]
+testData <- apps[-trainIndex, ]
+```
+
+### 7. **Lojistik Regresyon Modeli**
+Modeli eğittik ve sonuçlarını inceledik:
+```r
+model <- glm(Popularity ~ Reviews + Installs, data = trainData, family = "binomial")
+summary(model)
+```
+
+### 8. **Tahmin ve Model Değerlendirme**
+Test seti üzerinde tahmin yapıp doğruluk oranını hesapladık:
+```r
+predictions <- predict(model, newdata = testData, type = "response")
+predicted_classes <- ifelse(predictions > 0.5, 1, 0)
+confusionMatrix(as.factor(predicted_classes), as.factor(testData$Popularity))
+```
+
+### 9. **Veri Görselleştirme**
+**İnceleme Sayılarının Dağılımı**:
+```r
+ggplot(apps, aes(x = Reviews)) +
+  geom_histogram(fill = "green", bins = 30, alpha = 0.7) +
+  labs(title = "İnceleme Sayılarının Dağılımı", x = "İnceleme Sayısı", y = "Frekans") +
+  scale_x_log10()
+```
+
+**Kategori Bazlı Uygulama Dağılımı**:
+```r
+apps %>%
+  count(Category) %>%
+  ggplot(aes(x = reorder(Category, -n), y = n, fill = Category)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(title = "Uygulama Kategorilerine Göre Dağılım", x = "Kategori", y = "Uygulama Sayısı") +
+  theme_minimal()
+```
+
+---
+
+Bu projede, veri temizleme, analiz ve modelleme süreçlerini tamamladık. Lojistik regresyon ile popülerlik tahmininde bulunuldu ve modelin doğruluğunu test edildi. 
+
