@@ -1,12 +1,12 @@
 # Google Play Store Uygulama Analizi
 
 Bu projede, Google Play Store'daki uygulamaların kullanıcı etkileşimlerini analiz edildi,
-verileri temizlendi, dönüştürüldü ve bir lojistik regresyon modeli ile popülerlik tahmini yaptık.
+verileri temizlendi, dönüştürüldü ve bir lojistik regresyon modeli ile popülerlik tahmini yapıldı.
 
 ## **Adımlar ve İşlemler**
 
 ### 1. **Kütüphanelerin Yüklenmesi**
-Gerekli R paketlerini içe aktardık:
+Gerekli R paketlerini içe aktarıldı;
 ```r
 library(tidyverse)
 library(lubridate)
@@ -17,7 +17,7 @@ library(randomForest)
 ```
 
 ### 2. **Veri Setinin Yüklenmesi ve Ön İnceleme**
-Google Play Store verisini yükledik ve genel bir bakış yaptık:
+Google Play Store verisini yüklendi,
 ```r
 apps <- read.csv("googleplaystore.csv", fileEncoding = "UTF-8")
 head(apps)
@@ -26,21 +26,21 @@ str(apps)
 ```
 
 ### 3. **Eksik Verilerin Temizlenmesi**
-Rating sütunundaki eksik değerleri ortalama ile doldurduk:
+Rating sütunundaki eksik değerleri ortalama ile dolduruldu:
 ```r
 apps$Rating[is.na(apps$Rating)] <- mean(apps$Rating, na.rm = TRUE)
 ```
 
 ### 4. **Veri Dönüştürme**
-- `Reviews` ve `Installs` sütunlarını sayısal formata çevirdik.
-- `Installs` sütunundaki `+` ve `,` karakterlerini kaldırdık.
+- `Reviews` ve `Installs` sütunlarını sayısal formata çevirildi.
+- `Installs` sütunundaki `+` ve `,` karakterlerini kaldırıldı.
 ```r
 apps$Reviews <- as.numeric(gsub(",", "", apps$Reviews))
 apps$Installs <- as.numeric(gsub("[+,]", "", apps$Installs))
 ```
 
 ### 5. **Popülerlik Değişkeninin Tanımlanması**
-- `Popularity` değişkenini 0 ve 1 olarak yeniden oluşturduk.
+- `Popularity` değişkenini 0 ve 1 olarak yeniden oluşturuldu.
 - 1M'den fazla yüklemeye sahip olan uygulamaları "Popüler" olarak işaretledik.
 ```r
 apps$Popularity <- ifelse(apps$Installs >= 1000000, 1, 0)
@@ -55,14 +55,14 @@ testData <- apps[-trainIndex, ]
 ```
 
 ### 7. **Lojistik Regresyon Modeli**
-Modeli eğittik ve sonuçlarını inceledik:
+Modeli eğittik ve sonuçlarını incelendi:
 ```r
 model <- glm(Popularity ~ Reviews + Installs, data = trainData, family = "binomial")
 summary(model)
 ```
 
 ### 8. **Tahmin ve Model Değerlendirme**
-Test seti üzerinde tahmin yapıp doğruluk oranını hesapladık:
+Test seti üzerinde tahmin yapıp doğruluk oranını hesaplandı:
 ```r
 predictions <- predict(model, newdata = testData, type = "response")
 predicted_classes <- ifelse(predictions > 0.5, 1, 0)
@@ -91,5 +91,6 @@ apps %>%
 
 ---
 
-Bu projede, veri temizleme, analiz ve modelleme süreçlerini tamamladık. Lojistik regresyon ile popülerlik tahmininde bulunuldu ve modelin doğruluğunu test edildi. 
+Bu projede, veri temizleme, analiz ve modelleme süreçlerini tamamladık. 
+Lojistik regresyon ile popülerlik tahmininde bulunuldu ve modelin doğruluğunu test edildi. 
 
