@@ -1,3 +1,4 @@
+DataSet: https://www.kaggle.com/datasets/lava18/google-play-store-apps
 
 Google Play Store Uygulama Analizi: Veri Temizleme, Modelleme ve Popülerlik Tahmini📱📊
 
